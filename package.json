@@ -25,6 +25,7 @@
     "firebase-functions": "^2.1.0",
     "grpc": "^1.22.2",
     "next": "latest",
+    "next-redux-wrapper": "^6.0.0-rc.7",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^7.2.0",
