@@ -13,7 +13,7 @@ const SignupPage = () => {
 
   return (
     <Container>
-      <AuthForm action="signup" />
+      <AuthForm action="login" />
     </Container>
   );
 }
