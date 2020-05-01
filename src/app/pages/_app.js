@@ -8,6 +8,7 @@ import Header from '../components/header';
 import Provider from '../redux/store';
 import { AuthProvider } from '../contexts/auth';
 import { DestinationProvider } from '../contexts/destination';
+import { LayoutProvider } from '../contexts/layout';
 import { store } from '../redux/store';
 
 function MyApp({ Component, pageProps }) {
@@ -15,9 +16,11 @@ function MyApp({ Component, pageProps }) {
     <Provider>
       <DestinationProvider>
         <AuthProvider>
-          <GlobalStyles />
-          <Header />
-          <Component {...pageProps} />
+          <LayoutProvider>
+            <GlobalStyles />
+            <Header />
+            <Component {...pageProps} />
+          </LayoutProvider>
         </AuthProvider>
       </DestinationProvider>
     </Provider>

@@ -1,6 +1,6 @@
 import { functions } from '../../lib/firebase';
 
-export const registerSeller = (seller, history) => {
+export const registerSeller = (seller, router) => {
   return async (dispatch, getState, { getFirestore }) => {
     const firestore = getFirestore();
     console.log(seller);
@@ -14,7 +14,7 @@ export const registerSeller = (seller, history) => {
       const addSellerRole = functions.httpsCallable('addSellerRole');
       return addSellerRole({ email });
     }).then((result) => {
-      history.push('/seller');
+      router.push('/seller');
       console.log(result);
     }).catch((err) => {
       console.log(err);
