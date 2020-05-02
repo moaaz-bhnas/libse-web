@@ -7,7 +7,6 @@ import {
   RemoveIcon,
   ButtonsContainer
 } from '../style'
-import { Input, ColorInput } from '../../input/style';
 import Select from 'react-select';
 import { NextButton, PreviousButton } from '../../button';
 import removeIcon from '../../../img/remove.svg';
@@ -20,14 +19,22 @@ const sizeOptions = [
   { value: 'xLarge', label: 'X-large' },
 ];
 
+const colorOptions = [
+  { value: 'red',    label: 'Red' },
+  { value: 'blue',   label: 'Blue' },
+  { value: 'yellow', label: 'Yellow' },
+  { value: 'pink',   label: 'Pink' },
+]
+
 const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
-  const handleColorChange = useCallback((event, index) => {
+  const handleColorChange = useCallback((value, index) => {
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
-        color.value = event.target.value;
+        color.value = value;
       }
       return color;
     });
+    console.log(updatedColors);
     setColors(updatedColors);
   }, [ colors ])
 
@@ -82,17 +89,18 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
         colors.map((color, index) => (
           <InputContainer key={index}>
             <Label htmlFor={`productForm__color${index+1}`}>Color #{index+1}</Label>
-            <ColorInput 
-              id={`productForm__color${index+1}`}
-              type="color"
-              placeholder="e.g. blue"
-              value={color.value}
-              onChange={event => handleColorChange(event, index)}
-              required
+            <Select 
+              className="productForm__colorSelect" 
+              classNamePrefix="productForm__colorSelectChild"
+              value={color.value} 
+              options={colorOptions}
+              isSearchable 
+              placeholder="Color"
+              onChange={selectedColor => handleColorChange(selectedColor, index)}
             />
             <Select 
               className="productForm__sizeSelect" 
-              classNamePrefix="productForm__selectChild"
+              classNamePrefix="productForm__sizeSelectChild"
               value={color.sizes} 
               options={sizeOptions}
               isMulti

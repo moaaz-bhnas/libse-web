@@ -101,11 +101,13 @@ export const SubTitle = styled.h3`
 export const InputContainer = styled.div`
   position: relative;
 
-  .productForm__sizeSelect {
-    margin-bottom: .8em;
+  .productForm__sizeSelect,
+  .productForm__colorSelect {
+    margin-bottom: .65em;
   }
 
-  .productForm__selectChild__control {
+  .productForm__sizeSelectChild__control,
+  .productForm__colorSelectChild__control {
     border: 1px solid ${theme.border.grey};
     border-radius: ${measurements.borderRadius.input};
   }
