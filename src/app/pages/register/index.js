@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import { memo, useContext } from 'react';
 import { Container } from '../../components/container/style';
 import Form from '../../components/register';
 import { AuthContext } from '../../contexts/auth';

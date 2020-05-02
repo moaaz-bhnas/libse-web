@@ -1,12 +1,12 @@
-import { memo } from 'react';
+import { memo } from 'react'
 import SellerPageLayout from '../../components/layout/sellerPageLayout';
 
-const Seller = () => {
+const SponsoredProducts = () => {
   return (
     <SellerPageLayout>
-      Dashboard
+      Sponsored products
     </SellerPageLayout>
   );
 }
 
-export default memo(Seller);
+export default memo(SponsoredProducts);

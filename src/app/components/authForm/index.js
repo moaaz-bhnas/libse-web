@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo } from 'react';
 import SignupForm from './components/signupForm';
 import LoginForm from './components/loginForm';
 

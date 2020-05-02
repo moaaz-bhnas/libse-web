@@ -1,7 +1,7 @@
-import { memo } from 'react';
+import { memo } from 'react'
 import SellerPageLayout from '../../components/layout/sellerPageLayout';
 
-const Seller = () => {
+const Dashboard = () => {
   return (
     <SellerPageLayout>
       Dashboard
@@ -9,4 +9,4 @@ const Seller = () => {
   );
 }
 
-export default memo(Seller);
+export default memo(Dashboard);
