@@ -7,6 +7,7 @@ import {
 import Information from './components/information'; 
 import ProgressBar from './components/ProgressBar';
 import ColorsAndSizes from './components/colorsAndSizes';
+import Price from './components/price';
 
 const AddProductForm = () => {
   // Inputs
@@ -17,12 +18,14 @@ const AddProductForm = () => {
   const [ colors, setColors ] = useState([
     { value: '', sizes: [], images: [] }
   ]);
+  const [ price, setPrice ] = useState('');
+  const [ salePrice, setSalePrice ] = useState('');
 
-  const product = { productName, category, subCategory, description, colors };
+  const product = { productName, category, subCategory, description, colors, price, salePrice };
   console.log('product: ', product);
   
   // Active step
-  const [ activeStep, setActiveStep ] = useState(0);
+  const [ activeStep, setActiveStep ] = useState(2);
 
   const handleStepSubmit = useCallback((event, disabled) => {   
     console.log('disabled: ', disabled); 
@@ -53,10 +56,17 @@ const AddProductForm = () => {
             setActiveStep={activeStep}
             onStepSubmit={handleStepSubmit}
           /> :
+          activeStep === 1 ?
           <ColorsAndSizes 
             colors={colors}
             setColors={setColors}
             onStepSubmit={handleStepSubmit}
+          /> :
+          <Price 
+            price={price}
+            setPrice={setPrice}
+            salePrice={salePrice}
+            setSalePrice={setSalePrice}
           />
         }
       </FormContainer>

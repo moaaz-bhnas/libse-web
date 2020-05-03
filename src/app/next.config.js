@@ -1,4 +1,5 @@
 const Dotenv = require("dotenv-webpack");
+const path = require('path');
 
 module.exports = {
   distDir: '../../dist/functions/next',
@@ -6,6 +7,7 @@ module.exports = {
     // url loader
     config.module.rules.push({
       test: /\.(png|jpg|gif|svg)$/,
+      // include: [path.resolve(__dirname, 'node_modules/react-images-upload')],
       use: {
         loader: 'url-loader'
       }
