@@ -68,20 +68,10 @@ export default createGlobalStyle`
   
   .fileContainer .chooseFileButton {
     padding: 6px 23px;
-    background: #3f4257;
-    border-radius: 30px;
     color: white;
-    font-weight: 300;
-    font-size: 14px;
     margin: 10px 0;
-    transition: all 0.2s ease-in;
-    cursor: pointer;
     outline: none;
     border: none;
-  }
-  
-  .fileContainer .chooseFileButton:hover {
-    background: #545972;
   }
   
   .fileContainer .uploadFilesButton {

@@ -4,7 +4,7 @@ import theme from '../../shared/theme';
 import measurements from '../../shared/measurements';
 
 export const Form = styled.form`
-  
+  margin-left: 2em;
 `;
 
 export const FormContainer = styled.div`
@@ -19,12 +19,12 @@ export const Title = styled.h2`
 export const StyledProgressBar = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 48em;
+  width: 36em;
   margin-bottom: 2.5em;
 `;
 
 export const Step = styled.div`
-  flex: 1 0;
+  flex: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,9 +130,9 @@ export const InputContainer = styled.div`
     background-color: ${theme.bg.accent};
     transition: opacity .1s;
     border-radius: ${measurements.borderRadius.input};
-    font-size: 1rem;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background-color: ${theme.bg.accent};
       opacity: .6;
     }

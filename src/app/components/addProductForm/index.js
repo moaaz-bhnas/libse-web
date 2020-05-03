@@ -15,11 +15,14 @@ const AddProductForm = () => {
   const [ subCategory, setSubCategory ] = useState('');
   const [ description, setDescription ] = useState('');
   const [ colors, setColors ] = useState([
-    { value: '#000000', sizes: [], images: [] }
+    { value: '', sizes: [], images: [] }
   ]);
+
+  const product = { productName, category, subCategory, description, colors };
+  console.log('product: ', product);
   
   // Active step
-  const [ activeStep, setActiveStep ] = useState(1);
+  const [ activeStep, setActiveStep ] = useState(0);
 
   const handleStepSubmit = useCallback((event, disabled) => {   
     console.log('disabled: ', disabled); 

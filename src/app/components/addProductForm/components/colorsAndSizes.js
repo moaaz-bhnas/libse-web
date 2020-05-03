@@ -13,6 +13,7 @@ import removeIcon from '../../../img/remove.svg';
 import ImageUploader from 'react-images-upload';
 
 const sizeOptions = [
+  { value: 'xSmall', label: 'X-small' },
   { value: 'small',  label: 'Small' },
   { value: 'medium', label: 'Medium' },
   { value: 'large',  label: 'Large' },
@@ -20,10 +21,21 @@ const sizeOptions = [
 ];
 
 const colorOptions = [
+  { value: 'black',  label: 'Black' },
+  { value: 'grey',   label: 'Grey' },
+  { value: 'white',  label: 'White' },
+  { value: 'brown',  label: 'Brown' },
+  { value: 'beige',  label: 'Beige' },
   { value: 'red',    label: 'Red' },
-  { value: 'blue',   label: 'Blue' },
-  { value: 'yellow', label: 'Yellow' },
   { value: 'pink',   label: 'Pink' },
+  { value: 'orange', label: 'Orange' },
+  { value: 'ivory',  label: 'Ivory' },
+  { value: 'green',  label: 'Green' },
+  { value: 'blue',   label: 'Blue' },
+  { value: 'purple', label: 'Purple' },
+  { value: 'gold',   label: 'Gold' },
+  { value: 'silver', label: 'Silver' },
+  { value: 'multi',  label: 'Multi' },
 ]
 
 const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
@@ -53,7 +65,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
     event.preventDefault();
     const updatedColors = 
       (colors.length === 1) ? 
-        [{ value: '#000000', sizes: [], images: [] }] :
+        [{ value: '', sizes: [], images: [] }] :
         colors.filter((color, i) => i !== index);
     setColors(updatedColors);
   }, [ colors ])
@@ -74,7 +86,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
     if (allInputsFilled) {
       setColors([
         ...colors,
-        { value: '#000000', sizes: [], images: [] }
+        { value: '', sizes: [], images: [] }
       ])
     }
   }, [ colors ])
@@ -116,6 +128,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
               imgExtension={['.jpg', '.png', 'jpeg']}
               withPreview={true}
               label="Max file size: 5mb, accepted: jpg|png"
+              withIcon={false}
             />
             {
               ((color.sizes.length > 0) || (color.images.length > 0)) &&
