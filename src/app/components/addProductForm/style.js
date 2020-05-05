@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { title } from '../title/style';
 import theme from '../../shared/theme';
 import measurements from '../../shared/measurements';
+import { rectButton } from '../button/style';
+// import CurrencyInputField from 'react-currency-input-field';
+// import { inputStyles } from '../input/style';
 
 export const Form = styled.form`
   margin-left: 2em;
@@ -60,7 +63,7 @@ export const Step = styled.div`
 
 const borderColor = '#afaead';
 
-export const StepIconContainer = styled.div`
+export const StepIconButton = styled.button`
   width: 3em;
   height: 3em;
   padding: .6em;
@@ -169,3 +172,12 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const SubmitButton = styled.button`
+  ${rectButton}
+`;
+
+// export const CurrencyInput = styled(CurrencyInputField)`
+//   ${inputStyles}
+//   width: 100%;
+// `;

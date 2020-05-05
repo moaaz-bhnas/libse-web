@@ -1,36 +1,42 @@
 import { memo, useCallback } from 'react'
 import {
   SubTitle,
-  DataList,
-  Option
+  ButtonsContainer,
+  SubmitButton
 } from '../style';
-import { Input } from '../../input/style';
-import { PreviousButton } from '../../button';
+import { InputWithPrepending } from '../../input';
+import { PreviousButton, Button } from '../../button';
 
-const Information = ({ price, setPrice, salePrice, setSalePrice }) => {
-  // const disabled = [ productName, category, subCategory, description ].some(value => value === '');
+const Information = ({ price, setPrice, onStepSubmit, goToPreviousStep }) => {
+  const disabled = [ price ].some(value => value === '');
 
-  const handlePriceChange = useCallback(({ target: { value: price } }) => {
-    console.log(inputIsNumber(price));
-  }, []);
-
-  const inputIsNumber = useCallback((input) => {
-    const regex = /^\d+$/;
-    return regex.test(input);
-  }, [])
+  const handleSubmit = useCallback((event) => {
+    onStepSubmit(event, disabled);
+  }, [ disabled ])
 
   return (
     <>
       <SubTitle>Price</SubTitle>
-      
-      <Input 
-        type="text"
-        aria-label="Add price"
-        placeholder="price"
+
+      <InputWithPrepending
+        half
+        prependingText="EGP"
+        label="Price"
+        placeholder="Original price (e.g. 150)"
         value={price}
-        onChange={handlePriceChange}
+        onChange={event => setPrice(Number(event.target.value))}
         required
       />
+
+      <ButtonsContainer>
+        <PreviousButton onClick={goToPreviousStep} /> 
+        <SubmitButton
+          type="submit"
+          onClick={(event) => handleSubmit(event)}
+        >
+          Submit
+        </SubmitButton>
+      </ButtonsContainer>
     </>
   );
 }

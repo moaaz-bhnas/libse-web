@@ -38,7 +38,7 @@ const colorOptions = [
   { value: 'multi',  label: 'Multi' },
 ]
 
-const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
+const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) => {
   const handleColorChange = useCallback((value, index) => {
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
@@ -140,7 +140,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit }) => {
         ))
       }
       <ButtonsContainer>
-        <PreviousButton />
+        <PreviousButton onClick={goToPreviousStep} />
         <NextButton onClick={event => onStepSubmit(event, disabled)} />
       </ButtonsContainer>
     </>

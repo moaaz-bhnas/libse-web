@@ -3,11 +3,10 @@ import {
   StyledProgressBar,
   Step,
   StepText,
-  StepIconContainer
+  StepIconButton
 } from '../style';
 import InformationSvg from '../../../svgs/information';
 import ColorsSvg from '../../../svgs/colors';
-import ImagesSvg from '../../../svgs/images';
 import PriceSvg from '../../../svgs/price';
 
 const steps = [
@@ -32,9 +31,9 @@ const ProgressBar = ({ activeStep }) => {
             data-finished={activeStep > index}
             data-active={activeStep === index}
           >
-            <StepIconContainer className="progressbar__iconContainer">
+            <StepIconButton className="progressbar__iconContainer">
               <Icon />
-            </StepIconContainer>
+            </StepIconButton>
             <StepText>{text}</StepText>
           </Step>
         ))

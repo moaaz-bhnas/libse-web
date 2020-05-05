@@ -41,7 +41,18 @@ export const PreviousButton = ({ onClick }) => {
       onClick={onClick}
     >
       <PreviousIcon src={previousIcon} alt="" />
-      Previous
+      Prev
     </Button>
   );
 }
+
+// export const Button = ({ type, value, onClick }) => {
+//   return (
+//     <Button 
+//       type={type}
+//       onClick={onClick}
+//     >
+//       {value}
+//     </Button>
+//   );
+// }
