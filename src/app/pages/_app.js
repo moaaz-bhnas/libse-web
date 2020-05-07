@@ -10,6 +10,7 @@ import { AuthProvider } from '../contexts/auth';
 import { DestinationProvider } from '../contexts/destination';
 import { LayoutProvider } from '../contexts/layout';
 import { store } from '../redux/store';
+import { Main } from '../pagesStyle';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -19,7 +20,9 @@ function MyApp({ Component, pageProps }) {
           <LayoutProvider>
             <GlobalStyles />
             <Header />
-            <Component {...pageProps} />
+            <Main>
+              <Component {...pageProps} />
+            </Main>
           </LayoutProvider>
         </AuthProvider>
       </DestinationProvider>

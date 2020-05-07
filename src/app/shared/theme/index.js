@@ -3,7 +3,8 @@ const theme = {
     default: '#1b1e2f',
     interactive: '#d77e6a',
     secondaryLightOpposite: '#766852',
-    manatee: '#8D8F97'
+    manatee: '#8D8F97',
+    warning: '#cc0000'
   },
   bg: {
     primary: '#FAF9F7',
@@ -14,7 +15,8 @@ const theme = {
     grey: '#EDEDED',
     manatee: '#8D8F97',
     tuna: '#323544',
-    success: '#357f2f'
+    success: '#357f2f',
+    darkGrey: '#646463'
   },
   border: {
     japonica: '#d77e6a',

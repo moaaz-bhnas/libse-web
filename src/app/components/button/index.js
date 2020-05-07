@@ -22,11 +22,12 @@ export const AddProductButton = () => {
   );
 }
 
-export const NextButton = ({ onClick }) => {
+export const NextButton = ({ onClick, disabled }) => {
   return (
     <Button 
       type="submit"
       onClick={onClick}
+      data-disabled={disabled}
     >
       Next
       <NextIcon src={nextIcon} alt="" />
@@ -37,7 +38,7 @@ export const NextButton = ({ onClick }) => {
 export const PreviousButton = ({ onClick }) => {
   return (
     <Button 
-      type="submit"
+      type="button"
       onClick={onClick}
     >
       <PreviousIcon src={previousIcon} alt="" />

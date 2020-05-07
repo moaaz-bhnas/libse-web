@@ -106,8 +106,8 @@ export default createGlobalStyle`
   }
   
   .fileContainer .uploadPictureContainer {
-    width: 25%;
-    margin: 5%;
+    width: 27%;
+    margin: 3%;
     padding: 10px;
     background: #edf2f6;
     display: flex;

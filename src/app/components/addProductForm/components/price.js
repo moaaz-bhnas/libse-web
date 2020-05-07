@@ -22,7 +22,7 @@ const Information = ({ price, setPrice, onStepSubmit, goToPreviousStep }) => {
         half
         prependingText="EGP"
         label="Price"
-        placeholder="Original price (e.g. 150)"
+        placeholder="Price (e.g. 150)"
         value={price}
         onChange={event => setPrice(Number(event.target.value))}
         required

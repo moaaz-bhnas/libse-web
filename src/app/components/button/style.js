@@ -16,9 +16,14 @@ export const rectButton = css`
   align-items: center;
   line-height: 1;
 
-  &:hover,
-  &:focus {
-    opacity: .8;
+  // &:hover,
+  // &:focus {
+  //   opacity: .8;
+  // }
+
+  &[data-disabled="true"] {
+    opacity: .65;
+    cursor: not-allowed;
   }
 `;
 

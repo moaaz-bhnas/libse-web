@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from 'react'
+import { memo, useState, useCallback, useRef } from 'react'
 import {
   Form,
   Title,
@@ -25,9 +25,11 @@ const AddProductForm = () => {
   console.log('product: ', product);
   
   // Active step
-  const [ activeStep, setActiveStep ] = useState(1);
+  const [ activeStep, setActiveStep ] = useState(2);
+  console.log('activeStep: ', activeStep);
 
-  const handleStepSubmit = useCallback((event, disabled) => {   
+  const handleStepSubmit = useCallback((event, disabled) => {  
+    console.log('handleStepSubmit'); 
     console.log('disabled: ', disabled); 
     if (!disabled) {
       event.preventDefault();
@@ -36,18 +38,41 @@ const AddProductForm = () => {
   }, [ activeStep ]);
 
   const goToPreviousStep = useCallback(() => {
+    console.log('goToPreviousStep');
     setActiveStep(activeStep - 1);
-  }, [ activeStep ])
+  }, [ activeStep ]);
+
+  const finishedStep1 = productName && category && subCategory && description;
+  const finishedStep2 = colors[0].value && colors[0].sizes.length && colors[0].images.length;
+  const finishedStep3 = price;
+
+  const finishedStep = (
+    finishedStep3 ? 3 :
+    finishedStep2 ? 2 :
+    finishedStep1 ? 1 :
+    0
+  ); 
+
+  const handleFormSubmit = useCallback((event) => {
+    event.preventDefault();
+    if (finishedStep !== 3) {
+
+    }
+  }, [ finishedStep ])
     
   return (
-    <Form>
+    <Form onSubmit={handleFormSubmit}>
       <Title>Add Product</Title>
 
-      <ProgressBar activeStep={activeStep} />
+      <ProgressBar 
+        activeStep={activeStep} 
+        setActiveStep={setActiveStep}
+        finishedStep={finishedStep}
+      />
 
       <FormContainer>
         {
-          activeStep === 0 ?
+          activeStep === 1 ?
           <Information 
             productName={productName}
             setProductName={setProductName}
@@ -60,7 +85,7 @@ const AddProductForm = () => {
             setActiveStep={activeStep}
             onStepSubmit={handleStepSubmit}
           /> :
-          activeStep === 1 ?
+          activeStep === 2 ?
           <ColorsAndSizes 
             colors={colors}
             setColors={setColors}

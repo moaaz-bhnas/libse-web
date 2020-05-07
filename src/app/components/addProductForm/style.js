@@ -19,11 +19,14 @@ export const Title = styled.h2`
   ${title}
 `;
 
+export const ProgressBarContainer = styled.div`
+  width: 36em;
+  margin-bottom: 2.5em;
+`;
+
 export const StyledProgressBar = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 36em;
-  margin-bottom: 2.5em;
 `;
 
 export const Step = styled.div`
@@ -38,25 +41,14 @@ export const Step = styled.div`
     }
   }
   
-  &[data-active="true"] {
+  &[data-opened="true"] {
     .progressbar__iconContainer {
-      border-color: ${theme.bg.success};
-      // background-color: #c2d9c1;
+      border-color: ${theme.bg.darkGrey};
+      background-color: ${theme.bg.darkGrey};
     }
-  }
 
-  &[data-finished="true"] {
-    .progressbar__iconContainer {
-      border-color: ${theme.bg.success};
-      background-color: ${theme.bg.success};
-
-      &::after {
-        background-color: ${theme.border.success};
-      }
-
-      .svg {
-        fill: #fff;
-      }
+    .svg {
+      fill: #fff;
     }
   }
   `;
@@ -134,8 +126,7 @@ export const InputContainer = styled.div`
     transition: opacity .1s;
     border-radius: ${measurements.borderRadius.input};
 
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: ${theme.bg.accent};
       opacity: .6;
     }
@@ -144,7 +135,20 @@ export const InputContainer = styled.div`
 
 export const DataList = styled.datalist``;
 
-export const Option = styled.option``
+export const Option = styled.option``;
+
+export const ColorsNumber = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+`;
+
+export const LabelContainer = styled.div`
+  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
 export const Label = styled.label`
   
@@ -152,12 +156,9 @@ export const Label = styled.label`
 
 export const RemoveButton = styled.button`
   background-color: transparent;
-  position: absolute;
-  width: 3rem;
-  right: -4em;
-  top: 36%;
+  width: 3em;
   border: none;
-  padding: .8em;
+  padding: .9em;
 
   &:hover {
     opacity: .6;
@@ -175,6 +176,20 @@ export const ButtonsContainer = styled.div`
 
 export const SubmitButton = styled.button`
   ${rectButton}
+`;
+
+export const ErrorMsg = styled.p`
+  margin: 0;
+  color: ${theme.text.warning};
+  
+  display: flex;
+  align-items: center;
+  position: absolute;
+`;
+
+export const ErrorIcon = styled.img`
+  width: 1em;
+  margin-left: .5em;
 `;
 
 // export const CurrencyInput = styled(CurrencyInputField)`

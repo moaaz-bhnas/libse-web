@@ -1,16 +1,19 @@
-import { memo, useCallback, useEffect } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import {  
   SubTitle, 
   Label, 
   InputContainer,
   RemoveButton,
   RemoveIcon,
-  ButtonsContainer
+  ButtonsContainer,
+  LabelContainer,
+  ColorsNumber
 } from '../style'
 import Select from 'react-select';
 import { NextButton, PreviousButton } from '../../button';
 import removeIcon from '../../../img/remove.svg';
 import ImageUploader from 'react-images-upload';
+import { Input } from '../../input/style';
 
 const sizeOptions = [
   { value: 'xSmall', label: 'X-small' },
@@ -39,6 +42,21 @@ const colorOptions = [
 ]
 
 const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) => {
+  const [ colorsNumber, setColorsNumber ] = useState(1);
+
+  const setColorInputs = useCallback(() => {
+    if (colorsNumber > colors.length) {
+      const difference = colorsNumber - colors.length;
+      const emptyColor = { value: '', sizes: [], images: [] }
+      const newColors = Array(difference).fill(emptyColor);
+      setColors(colors.concat(newColors));
+    } else {
+      // handle when seller fill inputs and then dcrease their number
+    }
+  }, [ colors, colorsNumber ]);
+
+  useEffect(setColorInputs, [ colors, colorsNumber ]);
+
   const handleColorChange = useCallback((value, index) => {
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
@@ -79,28 +97,44 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
       return color;
     })
     setColors(updatedColors);
-  }, [ colors ])
+  }, [ colors ]);
 
-  useEffect(function addNewColorInputIfAllInputsFilled() {
-    const allInputsFilled = colors.every(({ sizes, images }) => sizes.length && images.length);
-    if (allInputsFilled) {
-      setColors([
-        ...colors,
-        { value: '', sizes: [], images: [] }
-      ])
-    }
+  const crossIconVisible = useCallback((index) => {
+    const color = colors[index];
+    return color.value || (color.sizes.length > 0) || (color.images.length > 0);
   }, [ colors ])
 
   console.log('colors: ', colors);
-  const disabled = colors[0].sizes.length === 0;
+  const disabled = colors.some(color => !color.value || !color.sizes.length || !color.images.length);
   return (
     <>
       <SubTitle>Colors & Sizes</SubTitle>
 
+      <ColorsNumber>
+        <Label htmlFor="productForm__colorsNumber">Number of colors: </Label>
+        <Input
+          data-tiny="true"
+          id="productForm__colorsNumber"
+          type="number"
+          value={colorsNumber}
+          onChange={event => setColorsNumber(event.target.value)}
+          required
+          max="10"
+        />
+      </ColorsNumber>
+
       {
         colors.map((color, index) => (
           <InputContainer key={index}>
-            <Label htmlFor={`productForm__color${index+1}`}>Color #{index+1}</Label>
+            <LabelContainer>
+              <Label>Color #{index+1}</Label>
+              {
+                crossIconVisible(index) &&
+                <RemoveButton onClick={(event) => removeColor(event, index)}>
+                  <RemoveIcon src={removeIcon} alt="remove color" />
+                </RemoveButton>
+              }
+            </LabelContainer>
             <Select 
               className="productForm__colorSelect" 
               classNamePrefix="productForm__colorSelectChild"
@@ -130,18 +164,15 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
               label="Max file size: 5mb, accepted: jpg|png"
               withIcon={false}
             />
-            {
-              ((color.sizes.length > 0) || (color.images.length > 0)) &&
-              <RemoveButton onClick={(event) => removeColor(event, index)}>
-                <RemoveIcon src={removeIcon} alt="remove color" />
-              </RemoveButton>
-            }
           </InputContainer>
         ))
       }
       <ButtonsContainer>
         <PreviousButton onClick={goToPreviousStep} />
-        <NextButton onClick={event => onStepSubmit(event, disabled)} />
+        <NextButton 
+          disabled={disabled}
+          onClick={event => onStepSubmit(event, disabled)}
+        />
       </ButtonsContainer>
     </>
   );

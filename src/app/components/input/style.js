@@ -13,6 +13,12 @@ export const Input = styled.input`
   ${inputStyles}
   width: ${({ half }) => half ? 'calc(50% - .5em)' : '100%'};
   margin-bottom: .8em;
+
+  &[data-tiny="true"] {
+    margin-bottom: 0;
+    margin-left: 1em;
+    width: 4em;
+  }
 `;
 
 export const TextArea = styled.textarea`

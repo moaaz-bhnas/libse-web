@@ -70,7 +70,10 @@ const Information = ({ productName, setProductName, category, setCategory, subCa
         required
       />
 
-      <NextButton onClick={event => onStepSubmit(event, disabled)} />
+      <NextButton 
+        disabled={disabled}
+        onClick={event => onStepSubmit(event, disabled)} 
+      />
     </>
   );
 }
