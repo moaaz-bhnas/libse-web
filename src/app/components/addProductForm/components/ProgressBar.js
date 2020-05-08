@@ -12,6 +12,7 @@ import InformationSvg from '../../../svgs/information';
 import ColorsSvg from '../../../svgs/colors';
 import PriceSvg from '../../../svgs/price';
 import errorIcon from '../../../img/error.svg';
+import time from '../../../shared/time';
 
 const steps = [
   { text: 'information',              Icon: InformationSvg },
@@ -38,7 +39,7 @@ const ProgressBar = ({ activeStep, setActiveStep, finishedStep }) => {
     if (error) {
       setTimeout(function hideErrorMsg() {
         setError(false);
-      }, 5000);
+      }, time.delay.errorMsg);
     }
   }, [ error ])
 
@@ -65,7 +66,7 @@ const ProgressBar = ({ activeStep, setActiveStep, finishedStep }) => {
         }
       </StyledProgressBar>
 
-      {error && <ErrorMsg role="alert">
+      {error && <ErrorMsg className="progressbar__errMsg" role="alert">
         You have to finish this step first
         <ErrorIcon src={errorIcon} alt="" />
       </ErrorMsg>}

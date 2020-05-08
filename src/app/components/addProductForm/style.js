@@ -13,6 +13,10 @@ export const Form = styled.form`
 export const FormContainer = styled.div`
   max-width: 25em;
   padding-bottom: 1em;
+
+  &[data-full-page="true"] {
+    max-width: initial;
+  }
 `;
 
 export const Title = styled.h2`
@@ -92,9 +96,17 @@ export const StepText = styled.p`
 export const SubTitle = styled.h3`
   font-size: 1.3rem;
 `;
+
+export const ColorsContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 52em;
+`;
   
 export const InputContainer = styled.div`
   position: relative;
+  flex: 0 1 25em;
 
   .productForm__sizeSelect,
   .productForm__colorSelect {
@@ -159,6 +171,7 @@ export const RemoveButton = styled.button`
   width: 3em;
   border: none;
   padding: .9em;
+  margin-right: -.9em;
 
   &:hover {
     opacity: .6;
@@ -184,7 +197,10 @@ export const ErrorMsg = styled.p`
   
   display: flex;
   align-items: center;
-  position: absolute;
+
+  &.progressbar__errMsg {
+    position: absolute;
+  }
 `;
 
 export const ErrorIcon = styled.img`

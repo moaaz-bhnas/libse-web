@@ -1,6 +1,7 @@
 const measurements = {
   maxWidth: {
-    container: '62rem'
+    container: '62em',
+    form: '25em'
   },
   width: {
     sidebar: '16em',
@@ -10,7 +11,7 @@ const measurements = {
     input: '.1em'
   },
   height: {
-    sellerHeader: '3rem'
+    sellerHeader: '3em'
   }
 }
 

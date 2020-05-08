@@ -70,7 +70,7 @@ const AddProductForm = () => {
         finishedStep={finishedStep}
       />
 
-      <FormContainer>
+      <FormContainer data-full-page={activeStep === 2}>
         {
           activeStep === 1 ?
           <Information 
