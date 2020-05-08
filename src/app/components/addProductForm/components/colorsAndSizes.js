@@ -47,10 +47,7 @@ const colorOptions = [
 
 const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) => {
   const [ colorsNumber, setColorsNumber ] = useState(1);
-  const [ colorsNumberError, setColorsNumberError ] = useState({
-    visible: false,
-    colorsToClear: 0
-  });
+  const [ colorsNumberError, setColorsNumberError ] = useState({ visible: false, colorsToClear: 0 });
 
   const handleColorsNumberChange = useCallback(({ target: { value: newNumber } }) => {
     if (newNumber > colorsNumber) {
@@ -77,20 +74,12 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
     ).length;
     const colorHasToBeCleared = difference > emptyColors;
     const unremovableColors = colorHasToBeCleared ? difference - emptyColors : 0;
-
     if (colorHasToBeCleared) {
-      setColorsNumberError({
-        visible: true,
-        colorsToClear: unremovableColors
-      });
+      setColorsNumberError({ visible: true, colorsToClear: unremovableColors });
       setTimeout(function clearError() {
-        setColorsNumberError({
-          visible: false,
-          colorsToClear: 0
-        });
+        setColorsNumberError({ visible: false, colorsToClear: 0 });
       }, 10000);
     }
-
     setColorsNumber(Number(newNumber) + Number(unremovableColors));
     let removedColors = 0;
     const newColors = colors.filter((color) => {
@@ -131,14 +120,17 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   }, [ colors ]);
 
   const removeColor = useCallback((event, index) => {
-    setColorsNumberError({ visible: false, colorsToClear: 0 });
     event.preventDefault();
+    setColorsNumberError({ visible: false, colorsToClear: 0 });
+    const isLastColor = colors.length === 1;
     const updatedColors = 
-      (colors.length === 1) ? 
+      isLastColor ? 
         [{ value: '', sizes: [], images: [] }] :
         colors.filter((color, i) => i !== index);
     setColors(updatedColors);
-    setColorsNumber(colorsNumber-1)
+    if (!isLastColor) {
+      setColorsNumber(colorsNumber-1)
+    }
   }, [ colors, colorsNumber ])
 
   const handleImageChange = useCallback((imageFiles, imageDataURLs, index) => {
@@ -225,6 +217,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 withPreview={true}
                 label="Max file size: 5mb, accepted: jpg|png"
                 withIcon={false}
+                buttonText="Choose image"
               />
             </InputContainer>
           ))
@@ -236,6 +229,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
         <NextButton 
           disabled={disabled}
           onClick={event => onStepSubmit(event, disabled)}
+          positionedAbsolutely={colors.length === 1}
         />
       </ButtonsContainer>
     </>

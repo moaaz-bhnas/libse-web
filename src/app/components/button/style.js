@@ -29,6 +29,12 @@ export const rectButton = css`
 
 export const Button = styled.button`
   ${rectButton};
+
+  &[data-positioned-absolutely="true"] {
+    position: absolute;
+    left: 25em;
+    transform: translateX(-100%);
+  }
 `;
 
 export const AddProduct = styled.a`

@@ -22,12 +22,13 @@ export const AddProductButton = () => {
   );
 }
 
-export const NextButton = ({ onClick, disabled }) => {
+export const NextButton = ({ onClick, disabled, positionedAbsolutely }) => {
   return (
     <Button 
       type="submit"
       onClick={onClick}
       data-disabled={disabled}
+      data-positioned-absolutely={positionedAbsolutely}
     >
       Next
       <NextIcon src={nextIcon} alt="" />

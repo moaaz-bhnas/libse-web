@@ -15,7 +15,7 @@ export const FormContainer = styled.div`
   padding-bottom: 1em;
 
   &[data-full-page="true"] {
-    max-width: initial;
+    max-width: 52em;
   }
 `;
 
@@ -101,7 +101,6 @@ export const ColorsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  max-width: 52em;
 `;
   
 export const InputContainer = styled.div`
@@ -137,10 +136,19 @@ export const InputContainer = styled.div`
     background-color: ${theme.bg.accent};
     transition: opacity .1s;
     border-radius: ${measurements.borderRadius.input};
+    display: flex;
+    align-items: center;
 
     &:hover {
       background-color: ${theme.bg.accent};
       opacity: .6;
+    }
+
+    &::after {
+      content: '↥';
+      display: inline-block;
+      margin-left: .5em;
+      font-size: 1.5em;
     }
   }
 `;
@@ -185,6 +193,7 @@ export const RemoveIcon = styled.img`
 export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  position: relative;
 `;
 
 export const SubmitButton = styled.button`
