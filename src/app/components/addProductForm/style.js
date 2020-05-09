@@ -138,14 +138,19 @@ export const InputContainer = styled.div`
 
   .productForm__imageUploaderButton {
     background-color: ${theme.bg.accent};
-    transition: opacity .1s;
+    transition-property: box-shadow, background-color;
+    transition-duration: .15s;
     border-radius: ${measurements.borderRadius.input};
     display: flex;
     align-items: center;
 
     &:hover {
-      background-color: ${theme.bg.accent};
-      opacity: .6;
+      background-color: #c2715f;
+    }
+  
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 0.2rem rgba(215, 126, 106, .5);
     }
 
     &::after {

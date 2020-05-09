@@ -11,19 +11,28 @@ export const rectButton = css`
   border: none;
   padding: 1em;
   cursor: pointer;
-  transition: .1s opacity;
+  transition-property: box-shadow, background-color;
+  transition-duration: .15s;
   display: inline-flex;
   align-items: center;
   line-height: 1;
 
-  // &:hover,
-  // &:focus {
-  //   opacity: .8;
-  // }
+  &:hover {
+    background-color: #c2715f;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(215, 126, 106, .5);
+  }
 
   &[data-disabled="true"] {
     opacity: .65;
     cursor: not-allowed;
+
+    &:hover {
+      background-color: ${theme.bg.accent};
+    }
   }
 `;
 
