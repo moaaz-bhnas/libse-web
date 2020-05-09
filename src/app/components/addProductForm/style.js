@@ -107,6 +107,10 @@ export const InputContainer = styled.div`
   position: relative;
   flex: 0 1 25em;
 
+  .inputContainer__errMsg {
+    margin: -.2em 0 .65em;
+  }
+
   .productForm__sizeSelect,
   .productForm__colorSelect {
     margin-bottom: .65em;
@@ -119,7 +123,7 @@ export const InputContainer = styled.div`
   }
 
   .productForm__imageUploader {
-    margin-bottom: 1.5em;
+    margin-bottom: .65em;
 
     .fileContainer {
       box-shadow: none;
@@ -150,6 +154,10 @@ export const InputContainer = styled.div`
       margin-left: .5em;
       font-size: 1.5em;
     }
+  }
+
+  .productForm__colorSelectChild__placeholder {
+    color: #686868;
   }
 `;
 
@@ -194,6 +202,7 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
+  margin-top: .85em;
 `;
 
 export const SubmitButton = styled.button`

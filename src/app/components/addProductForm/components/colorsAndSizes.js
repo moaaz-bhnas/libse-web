@@ -43,11 +43,14 @@ const colorOptions = [
   { value: 'gold',   label: 'Gold' },
   { value: 'silver', label: 'Silver' },
   { value: 'multi',  label: 'Multi' },
-]
+];
 
 const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) => {
   const [ colorsNumber, setColorsNumber ] = useState(1);
   const [ colorsNumberError, setColorsNumberError ] = useState({ visible: false, colorsToClear: 0 });
+  const [ colorError, setColorError ] = useState({ visible: false, index: null });
+  const [ sizeError, setSizeError ] = useState({ visible: false, index: null });
+  const [ imageError, setImageError ] = useState({ visible: false, index: null });
 
   const handleColorsNumberChange = useCallback(({ target: { value: newNumber } }) => {
     if (newNumber > colorsNumber) {
@@ -98,6 +101,8 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   }, []);
 
   const handleColorChange = useCallback((value, index) => {
+    if (value) setColorError({ visible: false, index: null });
+
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
         color.value = value;
@@ -109,7 +114,12 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   }, [ colors ])
 
   const handleSizeChange = useCallback((selectedSizes, index) => {
-    if (!selectedSizes) selectedSizes = [];
+    if (selectedSizes) {
+      setSizeError({ visible: false, index: null });
+    } else {
+      selectedSizes = [];
+    }
+
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
         color.sizes = selectedSizes;
@@ -134,7 +144,8 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   }, [ colors, colorsNumber ])
 
   const handleImageChange = useCallback((imageFiles, imageDataURLs, index) => {
-    console.log(imageFiles, imageDataURLs);
+    setImageError({ visible: false, index: null });
+
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
         color.images = imageDataURLs;
@@ -147,10 +158,24 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   const crossIconVisible = useCallback((index) => {
     const color = colors[index];
     return color.value || (color.sizes.length > 0) || (color.images.length > 0);
-  }, [ colors ])
+  }, [ colors ]);
+
+  const disabled = colors.some(color => !color.value || !color.sizes.length || !color.images.length);
+  const handleSubmit = useCallback((event) => {
+    onStepSubmit(event, disabled);
+
+    colors.forEach((color, index) => {
+      if (color.value === '') {
+        setColorError({ visible: true, index });
+      } else if (color.sizes.length === 0) {
+        setSizeError({ visible: true, index });
+      } else if (color.images.length === 0) {
+        setImageError({ visible: true, index });
+      }
+    });
+  }, [ disabled ]);
 
   console.log('colors: ', colors);
-  const disabled = colors.some(color => !color.value || !color.sizes.length || !color.images.length);
   return (
     <>
       <SubTitle>Colors & Sizes</SubTitle>
@@ -198,6 +223,11 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 placeholder="Color"
                 onChange={selectedColor => handleColorChange(selectedColor, index)}
               />
+              {(colorError.visible && colorError.index===index) && <ErrorMsg className="inputContainer__errMsg" role="alert">
+                Please choose a color 
+                <ErrorIcon src={errorIcon} alt="" />
+              </ErrorMsg>}
+
               <Select 
                 className="productForm__sizeSelect" 
                 classNamePrefix="productForm__sizeSelectChild"
@@ -208,6 +238,11 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 placeholder="Available sizes"
                 onChange={selectedSizes => handleSizeChange(selectedSizes, index)}
               />
+              {(sizeError.visible && sizeError.index===index) && <ErrorMsg className="inputContainer__errMsg" role="alert">
+                Please choose at least one size 
+                <ErrorIcon src={errorIcon} alt="" />
+              </ErrorMsg>}
+
               <ImageUploader 
                 className="productForm__imageUploader"
                 buttonClassName="productForm__imageUploaderButton"
@@ -219,6 +254,10 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 withIcon={false}
                 buttonText="Choose image"
               />
+              {(imageError.visible && imageError.index===index) && <ErrorMsg className="inputContainer__errMsg" role="alert">
+                Please choose at least one image 
+                <ErrorIcon src={errorIcon} alt="" />
+              </ErrorMsg>}
             </InputContainer>
           ))
         }
@@ -228,7 +267,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
         <PreviousButton onClick={goToPreviousStep} />
         <NextButton 
           disabled={disabled}
-          onClick={event => onStepSubmit(event, disabled)}
+          onClick={handleSubmit}
           positionedAbsolutely={colors.length === 1}
         />
       </ButtonsContainer>
