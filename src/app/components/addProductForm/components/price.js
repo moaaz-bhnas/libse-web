@@ -7,12 +7,8 @@ import {
 import { InputWithPrepending } from '../../input';
 import { PreviousButton, Button } from '../../button';
 
-const Information = ({ price, setPrice, onStepSubmit, goToPreviousStep }) => {
+const Information = ({ price, setPrice, onSubmit, goToPreviousStep }) => {
   const disabled = [ price ].some(value => value === '');
-
-  const handleSubmit = useCallback((event) => {
-    onStepSubmit(event, disabled);
-  }, [ disabled ])
 
   return (
     <>
@@ -32,7 +28,7 @@ const Information = ({ price, setPrice, onStepSubmit, goToPreviousStep }) => {
         <PreviousButton onClick={goToPreviousStep} /> 
         <SubmitButton
           type="submit"
-          onClick={(event) => handleSubmit(event)}
+          onClick={onSubmit}
         >
           Submit
         </SubmitButton>

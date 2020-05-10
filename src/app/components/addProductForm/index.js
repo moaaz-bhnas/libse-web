@@ -1,4 +1,4 @@
-import { memo, useState, useCallback, useRef } from 'react'
+import { memo, useState, useCallback, useContext } from 'react'
 import {
   Form,
   Title,
@@ -8,8 +8,14 @@ import Information from './components/information';
 import ProgressBar from './components/ProgressBar';
 import ColorsAndSizes from './components/colorsAndSizes';
 import Price from './components/price';
+import { AuthContext } from '../../contexts/auth';
+import { addProduct } from '../../redux/actions/productActions';
+import { useDispatch } from 'react-redux';
 
 const AddProductForm = () => {
+  const { uid: sellerId } = useContext(AuthContext);
+  const dispatch = useDispatch();
+
   // Inputs
   const [ productName, setProductName ] = useState('');
   const [ category, setCategory ] = useState('');
@@ -22,10 +28,9 @@ const AddProductForm = () => {
   const [ salePrice, setSalePrice ] = useState('');
 
   const product = { productName, category, subCategory, description, colors, price };
-  console.log('product: ', product);
   
   // Active step
-  const [ activeStep, setActiveStep ] = useState(2);
+  const [ activeStep, setActiveStep ] = useState(1);
   console.log('activeStep: ', activeStep);
 
   const handleStepSubmit = useCallback((event, disabled) => {  
@@ -55,9 +60,10 @@ const AddProductForm = () => {
 
   const handleFormSubmit = useCallback((event) => {
     event.preventDefault();
-    if (finishedStep !== 3) {
+    // if (finishedStep !== 3) return;
 
-    }
+    console.log('product: ', product);
+    dispatch(addProduct(sellerId, product))
   }, [ finishedStep ])
     
   return (
@@ -97,8 +103,8 @@ const AddProductForm = () => {
             setPrice={setPrice}
             salePrice={salePrice}
             setSalePrice={setSalePrice}
-            onStepSubmit={handleStepSubmit}
             goToPreviousStep={goToPreviousStep}
+            onSubmit={handleFormSubmit}
           />
         }
       </FormContainer>

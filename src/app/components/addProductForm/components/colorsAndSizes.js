@@ -145,10 +145,14 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
 
   const handleImageChange = useCallback((imageFiles, imageDataURLs, index) => {
     setImageError({ visible: false, index: null });
+    const images = imageFiles && imageFiles.map((file, index) => {
+      return { file, dataURL: imageDataURLs[index] }
+    });
+    console.log('images: ', images);
 
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
-        color.images = imageDataURLs;
+        color.images = images;
       }
       return color;
     })
@@ -246,7 +250,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
               <ImageUploader 
                 className="productForm__imageUploader"
                 buttonClassName="productForm__imageUploaderButton"
-                defaultImages={color.images}
+                defaultImages={color.images.map(image => image.dataURL)}
                 onChange={(imageFiles, imageDataURLs) => handleImageChange(imageFiles, imageDataURLs, index)}
                 imgExtension={['.jpg', '.png', 'jpeg']}
                 withPreview={true}

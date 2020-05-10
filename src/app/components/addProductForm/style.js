@@ -5,6 +5,7 @@ import measurements from '../../shared/measurements';
 import { rectButton } from '../button/style';
 // import CurrencyInputField from 'react-currency-input-field';
 // import { inputStyles } from '../input/style';
+import uploadIcon from '../../img/upload.svg';
 
 export const Form = styled.form`
   margin-left: 2em;
@@ -154,10 +155,10 @@ export const InputContainer = styled.div`
     }
 
     &::after {
-      content: '↥';
+      content: url(${uploadIcon});
+      width: 1em;
       display: inline-block;
-      margin-left: .5em;
-      font-size: 1.5em;
+      margin-left: .75em;
     }
   }
 
