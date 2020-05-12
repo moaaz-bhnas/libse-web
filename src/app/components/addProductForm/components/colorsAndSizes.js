@@ -252,7 +252,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 buttonClassName="productForm__imageUploaderButton"
                 defaultImages={color.images.map(image => image.dataURL)}
                 onChange={(imageFiles, imageDataURLs) => handleImageChange(imageFiles, imageDataURLs, index)}
-                imgExtension={['.jpg', '.png', 'jpeg']}
+                imgExtension={['.jpg', '.png', '.jpeg']}
                 withPreview={true}
                 label="Max file size: 5mb, accepted: jpg|png"
                 withIcon={false}

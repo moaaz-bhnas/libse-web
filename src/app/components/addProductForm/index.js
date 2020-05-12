@@ -48,7 +48,7 @@ const AddProductForm = () => {
   }, [ activeStep ]);
 
   const finishedStep1 = productName && category && subCategory && description;
-  const finishedStep2 = colors[0].value && colors[0].sizes.length && colors[0].images.length;
+  const finishedStep2 = colors.every(color => color.value && color.sizes.length && color.images.length);
   const finishedStep3 = price;
 
   const finishedStep = (
@@ -60,7 +60,7 @@ const AddProductForm = () => {
 
   const handleFormSubmit = useCallback((event) => {
     event.preventDefault();
-    // if (finishedStep !== 3) return;
+    if (finishedStep !== 3) return;
 
     console.log('product: ', product);
     dispatch(addProduct(sellerId, product))
