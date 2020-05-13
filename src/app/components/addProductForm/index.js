@@ -26,8 +26,6 @@ const AddProductForm = () => {
   ]);
   const [ price, setPrice ] = useState('');
   const [ salePrice, setSalePrice ] = useState('');
-
-  const product = { productName, category, subCategory, description, colors, price };
   
   // Active step
   const [ activeStep, setActiveStep ] = useState(1);
@@ -62,9 +60,10 @@ const AddProductForm = () => {
     event.preventDefault();
     if (finishedStep !== 3) return;
 
+    const product = { productName, category, subCategory, description, colors, price };
     console.log('product: ', product);
     dispatch(addProduct(sellerId, product))
-  }, [ finishedStep ])
+  }, [ finishedStep, productName, category, subCategory, description, colors, price ])
     
   return (
     <Form onSubmit={handleFormSubmit}>

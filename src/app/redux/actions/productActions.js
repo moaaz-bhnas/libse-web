@@ -6,9 +6,10 @@ function uuidGenerator() {
 
 const uploadProductToFirestore = async (firestore, dispatch, sellerId, product) => {
   const { productName, category, subCategory, description, colors, price } = product;
+  
   firestore.collection('products').doc().set({
     seller_id: sellerId,
-    product_name: productName,
+    name: productName,
     category,
     sub_category: subCategory,
     description,

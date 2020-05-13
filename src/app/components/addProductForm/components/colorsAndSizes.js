@@ -46,7 +46,7 @@ const colorOptions = [
 ];
 
 const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) => {
-  const [ colorsNumber, setColorsNumber ] = useState(1);
+  const [ colorsNumber, setColorsNumber ] = useState(colors.length);
   const [ colorsNumberError, setColorsNumberError ] = useState({ visible: false, colorsToClear: 0 });
   const [ colorError, setColorError ] = useState({ visible: false, index: null });
   const [ sizeError, setSizeError ] = useState({ visible: false, index: null });
@@ -100,12 +100,12 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
     return (color.value === '') && (color.sizes.length === 0) && (color.images.length === 0);
   }, []);
 
-  const handleColorChange = useCallback((value, index) => {
-    if (value) setColorError({ visible: false, index: null });
+  const handleColorChange = useCallback((selectedColor, index) => {
+    if (selectedColor) setColorError({ visible: false, index: null });
 
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
-        color.value = value;
+        color.value = selectedColor.value;
       }
       return color;
     });

@@ -49,6 +49,7 @@ export const Button = styled.button`
 export const AddProduct = styled.a`
   text-decoration: none;
   ${rectButton}
+  margin-bottom: 1em;
 `;
 
 export const AddIcon = styled.img`

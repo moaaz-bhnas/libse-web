@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import SellerPageLayout from '../../../components/layout/sellerPageLayout';
+import SellerPageLayout from '../../../../components/layout/sellerPageLayout';
 
 const ProductPage = () => {
   return (

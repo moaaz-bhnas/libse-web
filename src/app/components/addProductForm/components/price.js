@@ -8,8 +8,6 @@ import { InputWithPrepending } from '../../input';
 import { PreviousButton, Button } from '../../button';
 
 const Information = ({ price, setPrice, onSubmit, goToPreviousStep }) => {
-  const disabled = [ price ].some(value => value === '');
-
   return (
     <>
       <SubTitle>Price</SubTitle>
@@ -19,6 +17,7 @@ const Information = ({ price, setPrice, onSubmit, goToPreviousStep }) => {
         prependingText="EGP"
         label="Price"
         placeholder="Price (e.g. 150)"
+        min="1"
         value={price}
         onChange={event => setPrice(Number(event.target.value))}
         required
