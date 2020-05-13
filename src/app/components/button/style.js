@@ -18,7 +18,7 @@ export const rectButton = css`
   line-height: 1;
 
   &:hover {
-    background-color: #c2715f;
+    background-color: #ae452e;
   }
 
   &:focus {

@@ -1,7 +1,7 @@
 const theme = {
   text: {
     default: '#1b1e2f',
-    interactive: '#d77e6a',
+    interactive: '#C14D33',
     secondaryLightOpposite: '#766852',
     manatee: '#8D8F97',
     warning: '#cc0000'
@@ -9,7 +9,7 @@ const theme = {
   bg: {
     primary: '#FAF9F7',
     secondary: '#1B1E2F',
-    accent: '#d77e6a',
+    accent: '#C14D33',
     secondaryLight: '#bbbcc1',
     secondaryLightOpposite: '#766852',
     grey: '#EDEDED',

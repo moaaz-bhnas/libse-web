@@ -1,4 +1,4 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState } from 'react';
 import Link from 'next/link';
 import {
   StyledProduct,
@@ -11,8 +11,11 @@ import {
   Color,
   ColorButton,
   PriceContainer,
-  Price
+  Price,
+  Abbr,
+  LikeButton
 } from '../style';
+import LikeSvg from '../../../svgs/heart';
 
 const Product = ({ product, seller }) => {
   const defaultColor = product.colors.find(color => color.default);
@@ -49,6 +52,7 @@ const Product = ({ product, seller }) => {
                   onClick={() => setActiveColor(colors[index])}
                   title={color}
                   data-active={color === activeColor.value}
+                  onMouseDown={e => e.preventDefault()}
                 />
               </Color>
             ))
@@ -62,7 +66,12 @@ const Product = ({ product, seller }) => {
         </Link>
 
         <PriceContainer>
-          <Price>{product.price}</Price>
+          <Price>{product.price} <Abbr title="Egyptian">EGP</Abbr></Price>
+          <LikeButton
+            aria-label="Add to favorites"
+          >
+            <LikeSvg className="product__likeSvg" />
+          </LikeButton>
         </PriceContainer>
       </ProductContainer>
     </StyledProduct>
