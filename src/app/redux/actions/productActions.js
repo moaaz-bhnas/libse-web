@@ -68,3 +68,33 @@ export const addProduct = (sellerId, product) => {
     })();
   }
 }
+
+export const addToFavorites = (userId, productId) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firestore.collection('users').doc(userId).update({
+      favorites: firebase.firestore.FieldValue.arrayUnion(productId)
+    }).then(() => {
+      dispatch({ type: 'ADD_FAVORITE_SUCCESS' });
+    }).catch(err => {
+      dispatch({ type: 'ADD_FAVORITE_ERROR', err });
+    })
+  }
+}
+
+export const removeFromFavorites = (userId, productId) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firestore.collection('users').doc(userId).update({
+      favorites: firebase.firestore.FieldValue.arrayRemove(productId)
+    }).then(() => {
+      dispatch({ type: 'REMOVE_FAVORITE_SUCCESS' });
+    }).catch(err => {
+      dispatch({ type: 'REMOVE_FAVORITE_ERROR', err });
+    })
+  }
+}

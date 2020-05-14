@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo, useState, useCallback, useContext } from 'react';
 import Link from 'next/link';
 import {
   StyledProduct,
@@ -16,8 +16,14 @@ import {
   LikeButton
 } from '../style';
 import LikeSvg from '../../../svgs/heart';
+import { addToFavorites, removeFromFavorites } from '../../../redux/actions/productActions';
+import { AuthContext } from '../../../contexts/auth';
+import { useDispatch } from 'react-redux';
 
-const Product = ({ product, seller }) => {
+const Product = ({ product, seller, inFavorites }) => {
+  const { uid: userId } = useContext(AuthContext);
+  const dispatch = useDispatch();
+
   const defaultColor = product.colors.find(color => color.default);
   const [ activeColor, setActiveColor ] = useState(defaultColor);
 
@@ -25,11 +31,14 @@ const Product = ({ product, seller }) => {
     href: `${seller ? '/seller' : ''}/product/[id]/[color]`,
     asPrecedingText: `${seller ? '/seller' : ''}/product/${product.id}/`
   }
-  const primaryColor = product.colors[0].value;
 
-  // const handleMouseEnter = useCallback((index) => {
-  //   callback
-  // }, [])
+  const handleLikeToggle = useCallback(() => {
+    dispatch(
+      inFavorites ? 
+      removeFromFavorites(userId, product.id) :
+      addToFavorites(userId, product.id)
+    );
+  }, [ inFavorites ])
 
   return (
     <StyledProduct key={product.id}>
@@ -69,6 +78,8 @@ const Product = ({ product, seller }) => {
           <Price>{product.price} <Abbr title="Egyptian">EGP</Abbr></Price>
           <LikeButton
             aria-label="Add to favorites"
+            data-favorite={inFavorites}
+            onClick={handleLikeToggle}
           >
             <LikeSvg className="product__likeSvg" />
           </LikeButton>

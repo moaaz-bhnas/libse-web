@@ -8,7 +8,8 @@ export const signUp = (credentials) => {
       credentials.password
     ).then((response) => {
       return firestore.collection('users').doc(response.user.uid).set({
-        username: credentials.username
+        username: credentials.username,
+        favorites: []
       })
     }).then(() => {
       console.log('username added');

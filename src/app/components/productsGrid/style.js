@@ -119,7 +119,7 @@ export const LikeButton = styled.button`
     stroke-width: 30;
   }
 
-  &[data-clicked] {
+  &[data-favorite="true"] {
     .product__likeSvg {
       fill: ${theme.bg.accent};
     }
