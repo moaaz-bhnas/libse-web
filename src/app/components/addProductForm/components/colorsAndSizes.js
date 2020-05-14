@@ -15,7 +15,7 @@ import {
 import Select from 'react-select';
 import { NextButton, PreviousButton } from '../../button';
 import removeIcon from '../../../img/remove.svg';
-import ImageUploader from './index';
+import ImageUploader from './imageUploader';
 import { Input } from '../../input/style';
 import errorIcon from '../../../img/error.svg';
 
