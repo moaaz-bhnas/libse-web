@@ -255,7 +255,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
               <ImageUploader 
                 className="productForm__imageUploader"
                 buttonClassName="productForm__imageUploaderButton"
-                defaultImages={color.images.map(image => image.dataURL)}
+                pictures={color.images.map(image => image.dataURL)}
                 files={color.images.map(image => image.file)}
                 onChange={(imageFiles, imageDataURLs) => handleImageChange(imageFiles, imageDataURLs, index)}
                 imgExtension={['.jpg', '.png', '.jpeg']}

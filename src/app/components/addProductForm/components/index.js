@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import './index.css';
 import FlipMove from 'react-flip-move';
-// import UploadIcon from './UploadIcon.svg';
 
 const styles = {
   display: "flex",
@@ -21,32 +19,12 @@ class ReactImageUploadComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pictures: [...props.defaultImages],
-      files: [...props.files],
       fileErrors: []
     };
     this.inputElement = '';
     this.onDropFile = this.onDropFile.bind(this);
     this.onUploadClick = this.onUploadClick.bind(this);
     this.triggerFileUpload = this.triggerFileUpload.bind(this);
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot){
-    console.log('componentDidUpdate');
-    // if(prevState.files !== this.state.files){
-    //   this.props.onChange(this.state.files, this.state.pictures);
-    // }
-  }
-
-  /*
-   Load image at the beggining if defaultImage prop exists
-   */
-  componentWillReceiveProps(nextProps){
-    console.log('componentWillReceiveProps');
-    console.log('defaultImages: ', nextProps.defaultImages);
-    if(nextProps.defaultImages !== this.props.defaultImages){
-      this.setState({pictures: nextProps.defaultImages, files: nextProps.files});
-    }
   }
 
   /*
@@ -98,8 +76,8 @@ class ReactImageUploadComponent extends React.Component {
     const {singleImage} = this.props;
 
     Promise.all(allFilePromises).then(newFilesData => {
-      const dataURLs = singleImage?[]:this.state.pictures.slice();
-      const files = singleImage?[]:this.state.files.slice();
+      const dataURLs = singleImage?[]:this.props.pictures.slice();
+      const files = singleImage?[]:this.props.files.slice();
 
       newFilesData.forEach(newFileData => {
         dataURLs.push(newFileData.dataURL);
@@ -139,14 +117,11 @@ class ReactImageUploadComponent extends React.Component {
    Remove the image from state
    */
   removeImage(picture) {
-    const removeIndex = this.state.pictures.findIndex(e => e === picture);
-    const filteredPictures = this.state.pictures.filter((e, index) => index !== removeIndex);
-    const filteredFiles = this.state.files.filter((e, index) => index !== removeIndex);
+    const removeIndex = this.props.pictures.findIndex(e => e === picture);
+    const filteredPictures = this.props.pictures.filter((e, index) => index !== removeIndex);
+    const filteredFiles = this.props.files.filter((e, index) => index !== removeIndex);
 
-    this.props.onChange(filteredPictures, filteredFiles);
-    // this.setState({pictures: filteredPictures, files: filteredFiles}, () => {
-    //   this.props.onChange(this.state.files, this.state.pictures);
-    // });
+    this.props.onChange(filteredFiles, filteredPictures);
   }
 
   /*
@@ -195,7 +170,7 @@ class ReactImageUploadComponent extends React.Component {
   }
 
   renderPreviewPictures() {
-    return this.state.pictures.map((picture, index) => {
+    return this.props.pictures.map((picture, index) => {
       return (
         <div key={index} className="uploadPictureContainer">
           <div className="deleteImage" onClick={() => this.removeImage(picture)}>X</div>
@@ -213,7 +188,7 @@ class ReactImageUploadComponent extends React.Component {
   }
 
   render() {
-    console.log('pictures: ', this.state.pictures);
+    console.log('pictures: ', this.props.pictures);
 
     return (
       <div className={"fileUploader " + this.props.className} style={this.props.style}>
