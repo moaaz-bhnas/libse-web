@@ -109,13 +109,12 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
       }
       return color;
     });
-    console.log(updatedColors);
     setColors(updatedColors);
   }, [ colors ])
 
   const handleSizeChange = useCallback((selectedSizes, index) => {
     if (selectedSizes) {
-      setSizeError({ visible: false, index: null });
+      if (sizeError.visible) setSizeError({ visible: false, index: null });
     } else {
       selectedSizes = [];
     }
@@ -131,7 +130,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
 
   const removeColor = useCallback((event, index) => {
     event.preventDefault();
-    setColorsNumberError({ visible: false, colorsToClear: 0 });
+    if (colorsNumberError.visible) setColorsNumberError({ visible: false, colorsToClear: 0 });
 
     const isLastColor = colors.length === 1;
     const updatedColors = 
@@ -146,12 +145,11 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   }, [ colors, colorsNumber ])
 
   const handleImageChange = useCallback((imageFiles, imageDataURLs, index) => {
-    console.log('imageDataURLs: ', imageDataURLs);
-    setImageError({ visible: false, index: null });
+    if (imageError.visible) setImageError({ visible: false, index: null });
+
     const images = imageFiles ? imageFiles.map((file, index) => {
       return { file, dataURL: imageDataURLs[index] }
     }) : [];
-    console.log('images: ', images);
 
     const updatedColors = colors.map((color, i) => {
       if (i === index) {
@@ -208,8 +206,6 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
       <ColorsContainer>
         {
           colors.map((color, index) => {
-            console.log('colors: ', colors, 'color: ', color);
-            console.log('dafault', color.images.map(image => image.dataURL));
             return <InputContainer key={index}>
               <LabelContainer>
                 <Label>Color #{index+1}</Label>
