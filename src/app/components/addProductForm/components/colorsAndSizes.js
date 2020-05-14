@@ -15,7 +15,7 @@ import {
 import Select from 'react-select';
 import { NextButton, PreviousButton } from '../../button';
 import removeIcon from '../../../img/remove.svg';
-import ImageUploader from 'react-images-upload';
+import ImageUploader from './index';
 import { Input } from '../../input/style';
 import errorIcon from '../../../img/error.svg';
 
@@ -132,22 +132,25 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
   const removeColor = useCallback((event, index) => {
     event.preventDefault();
     setColorsNumberError({ visible: false, colorsToClear: 0 });
+
     const isLastColor = colors.length === 1;
     const updatedColors = 
       isLastColor ? 
         [{ value: '', sizes: [], images: [] }] :
         colors.filter((color, i) => i !== index);
     setColors(updatedColors);
+
     if (!isLastColor) {
       setColorsNumber(colorsNumber-1)
     }
   }, [ colors, colorsNumber ])
 
   const handleImageChange = useCallback((imageFiles, imageDataURLs, index) => {
+    console.log('imageDataURLs: ', imageDataURLs);
     setImageError({ visible: false, index: null });
-    const images = imageFiles && imageFiles.map((file, index) => {
+    const images = imageFiles ? imageFiles.map((file, index) => {
       return { file, dataURL: imageDataURLs[index] }
-    });
+    }) : [];
     console.log('images: ', images);
 
     const updatedColors = colors.map((color, i) => {
@@ -204,8 +207,10 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
 
       <ColorsContainer>
         {
-          colors.map((color, index) => (
-            <InputContainer key={index}>
+          colors.map((color, index) => {
+            console.log('colors: ', colors, 'color: ', color);
+            console.log('dafault', color.images.map(image => image.dataURL));
+            return <InputContainer key={index}>
               <LabelContainer>
                 <Label>Color #{index+1}</Label>
                 {
@@ -251,6 +256,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 className="productForm__imageUploader"
                 buttonClassName="productForm__imageUploaderButton"
                 defaultImages={color.images.map(image => image.dataURL)}
+                files={color.images.map(image => image.file)}
                 onChange={(imageFiles, imageDataURLs) => handleImageChange(imageFiles, imageDataURLs, index)}
                 imgExtension={['.jpg', '.png', '.jpeg']}
                 withPreview={true}
@@ -263,7 +269,7 @@ const ColorsAndSizes = ({ colors, setColors, onStepSubmit, goToPreviousStep }) =
                 <ErrorIcon src={errorIcon} alt="" />
               </ErrorMsg>}
             </InputContainer>
-          ))
+          })
         }
       </ColorsContainer>
 

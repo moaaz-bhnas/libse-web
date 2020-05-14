@@ -117,6 +117,7 @@ export const LikeButton = styled.button`
     fill: transparent;
     stroke: ${theme.bg.accent};
     stroke-width: 30;
+    transition: .1s fill;
   }
 
   &[data-favorite="true"] {

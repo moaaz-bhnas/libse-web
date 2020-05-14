@@ -80,6 +80,7 @@ const Product = ({ product, seller, inFavorites }) => {
             aria-label="Add to favorites"
             data-favorite={inFavorites}
             onClick={handleLikeToggle}
+            onMouseDown={e => e.preventDefault()}
           >
             <LikeSvg className="product__likeSvg" />
           </LikeButton>
